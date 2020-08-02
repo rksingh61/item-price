@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block rk_com_content %}
+<header>
+    <h1>List of Alerts</h1>
+</header>
+<section>
+    <div class="list-group">
+        {% for alert in alerts %}
+        <div class="list-group-item">
+            <h4 class="list-group-item-heading">{{ alert.alert_name}}</h4>
+            <p >
+                <a href="{{ alert.item.url }}">{{ alert.item_id }} (last price {{ alert.item.price}})</a>
+            </p>
+            <a class="btn btn-secondary" href="{{ url_for('bp_alerts.edit_alert', alert_id=alert._id) }}">
+                Edit
+            </a>
+            <a class="btn btn-danger" href="{{ url_for('bp_alerts.delete_alert', alert_id=alert._id) }}">
+                Delete
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="btn btn-primary mt-3" href="{{ url_for('bp_alerts.new_alert') }}">
+        Create new
+    </a>
+</section>
+{% endblock %}

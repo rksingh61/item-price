@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block rk_com_content %}
+<header>
+    <h1>Create Store</h1>
+</header>
+<section class="create-store-form">
+    <form method="post">
+        <div class="form-group">
+            <label for="store_name">Store Name</label>
+            <input type="text" class="form-control" id="store_name" name="name_of_store" placeholder="John Lewis"
+                   aria-describedby="storeNameHelp"/>
+            <small id="storeNameHelp" class="form-text text-muted">
+                Specify a Name of the Store
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="url_prefix">Item URL</label>
+            <input type="text" class="form-control" id="url_prefix" name="nm_url_prefix" placeholder="https://..."
+                aria-describedby="urlPrefixHelp">
+            <small id="urlPrefixHelp" class="form-text text-muted">
+                What URL will all its items start with?
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="tag_name">HTML Tag Name</label>
+            <input type="text" class="form-control" id="tag_name" name="name_tag" placeholder="span"
+                aria-describedby="priceTagHelp">
+            <small id="priceTagHelp" class="form-text text-muted">
+                What HTML tag contains the price information for this item in this store?
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="query">HTML Query</label>
+            <input type="text" class="form-control" id="query" name="nm_query" placeholder='{"class": "price price--large"}'
+                   aria-describedby="queryHelp">
+            <small id="queryHelp" class="form-text text-muted">
+                What attributes are on the element that contains the Price? This is so we can find it on the page.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</section>
+{% endblock %}
