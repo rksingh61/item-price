@@ -40,12 +40,13 @@ class Alert(Model):
         return self.item.price
 
     def notify_if_price_reached(self) -> None:
+        print(f"NOTIFY : {self}")
         if self.item.price < self.price_limit:
             print(f"Item ID: {self.item._id} Name: {self.item.item_name} has reached a price under {self.price_limit}. Latest price: {self.item.price}.")
             resp = Mailgun.send_email(
                 email=[self.user_email],
-                subject=f"Notification for {self.name}",
-                text=f"Your alert {self.name} has reached a price under {self.price_limit}. The latest price is {self.item.price}. Go to this address to check your item: {self.item.url}.",
-                html=f'<p>Your alert {self.name} has reached a price under {self.price_limit}.</p><p>The latest price is {self.item.price}. Click <a href="{self.item.url}>here</a> to purchase your item.</p>'
+                subject=f"Notification for {self.item.item_name}",
+                text=f"Your alert {self.item.item_name} has reached a price under {self.price_limit}. The latest price is {self.item.price}. Go to this address to check your item: {self.item.url}.",
+                html=f'<p>Your alert {self.alert_name} has reached a price under {self.price_limit}.</p><p>The latest price is {self.item.price}. Click <a href="{self.item.url}>here</a> to purchase your item.</p>'
             )
             print(f"Mail Sent Successfully {resp}")

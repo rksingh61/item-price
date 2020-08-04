@@ -10,8 +10,9 @@ class MailGunException(Exception):
 
 class Mailgun:
 
-    FROM_TITLE = 'Pricing Service'
-    FROM_EMAIL = 'do-not-reply@sandboxe4339243883e4aaa9a4c5f6ee478c132.mailgun.org'
+    # FROM_TITLE = 'Pricing Service'
+    # FROM_EMAIL = 'do-not-reply@sandboxe4339243883e4aaa9a4c5f6ee478c132.mailgun.org'
+    # FROM_EMAIL = os.environ.get('MAILGUN_FROM', None)
 
     @classmethod
     def send_email(
@@ -19,8 +20,10 @@ class Mailgun:
     ) -> Response:
         mapi_key = os.environ.get('MAILGUN_API_KEY', None)
         mdomain = os.environ.get('MAILGUN_DOMAIN', None)
+        mfrom = os.environ.get('MAILGUN_FROM', None)
+        mtitle = os.environ.get('MAILGUN_TITLE', None)
 
-        print(f"API_KEY = {mapi_key}   DOMAIN = {mdomain}")
+        print(f"API_KEY = {mapi_key}   DOMAIN = {mdomain} FROM = {mfrom}   TITLE = {mtitle}")
 
         print("IF API KEY Code")
         if mapi_key is None:
@@ -35,7 +38,7 @@ class Mailgun:
             f'https://api.mailgun.net/v3/{mdomain}/messages',
             auth=('api', mapi_key),
             data={
-                'from': f'{cls.FROM_TITLE} <{cls.FROM_EMAIL}>',
+                'from': f'{mtitle} <{mfrom}>',
                 'to': email,
                 'subject': subject,
                 'text': text,
